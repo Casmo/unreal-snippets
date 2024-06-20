@@ -8,15 +8,14 @@ export default function CanvasPreview ({children}) {
     
     setTimeout(() => {
         if (gridRef.current) {
-        gridRef.current.rotateX(Math.PI / 2); 
+            gridRef.current.rotateX(Math.PI / 2); 
         }
-    }, 125);
+    }, 500);
 
     THREE.Object3D.DEFAULT_UP = new THREE.Vector3( 0, 0, 1);
 
     return (
-        <Canvas className="opacity-0 animate-[appear_1000ms_linear_125ms_forwards]" camera={{fov: 75, position: [-5, -5, 2]}}>
-            {/* <axesHelper args={[2]} /> */}
+        <Canvas flat linear className="opacity-0 animate-[appear_1000ms_linear_500ms_forwards]" camera={{fov: 75, position: [-3, -3, 4]}}>
             <gridHelper ref={gridRef} args={[50, 50, 0xffffff, 0xaaaaaa]} />
             <OrbitControls />
             <ambientLight intensity={Math.PI / 2} />

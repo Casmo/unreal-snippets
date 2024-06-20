@@ -13,8 +13,9 @@ export default function VectorPoint (props) {
         <mesh
         {...props}
         ref={meshRef}>
-        <sphereGeometry />
-        <meshLambertMaterial color={'white'} />
+        <sphereGeometry args={[.3]} />
+        <axesHelper args={[1]} />
+        <meshLambertMaterial color={'red'} />
         </mesh>
     );
 }

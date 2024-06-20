@@ -4,6 +4,7 @@ import { dracula } from '@uiw/codemirror-theme-dracula';
 import { cpp } from '@codemirror/lang-cpp';
 import CanvasPreview from '../components/CanvasPreview';
 import VectorPoint from '../components/vector/VectorPoint';
+import Copy from '../components/utility/Copy';
 import { Input } from '@headlessui/react'
 
 export default function Vector () {
@@ -13,12 +14,15 @@ export default function Vector () {
   const [positionZ, setPositionZ] = useState(3);
   const [position, setPosition] = useState([0,0,0]);
 
+  const [code, setCode] = useState(`FVector Location = FVector(0.f, 0.f, 0.f);`);
+
   useEffect(() => {
     setPosition([
       positionX,
       positionY,
       positionZ
     ]);
+    setCode(`FVector Location = FVector(${positionX}.f, ${positionY}.f, ${positionZ}.f);`);
   }, [positionX, positionY, positionZ]);
 
     return (
@@ -29,14 +33,17 @@ export default function Vector () {
           </p>
 
           <h2 className="mt-2 text-1xl font-bold tracking-tight text-gray-200 sm:text-2xl">Location</h2>
-          <div className="flex  content-start gap-2">
-            <CodeMirror theme={dracula} className="flex-grow" value={`FVector Location = FVector(${position[0]}.f, ${position[1]}.f, ${position[2]}.f);`} minHeight='200px' extensions={[cpp()]}  readOnly={true} />
-            <div className="h-64 w-64">
-              <div>
-                <CanvasPreview>
-                  <VectorPoint position={position} />
-                </CanvasPreview>
+          <div className="flex gap-2 items-stretch h-96">
+            <div className="flex-grow">
+              <CodeMirror style={{height: "24rem" }} className="flex-grow" theme={dracula} value={code} minHeight='100%' extensions={[cpp()]}  readOnly={true} />
+              <div className="flex-none mt-1">
+                <Copy text={code} />
               </div>
+            </div>
+            <div style={{ width: "24rem", height: "24rem" }}>
+              <CanvasPreview>
+                <VectorPoint position={position} />
+              </CanvasPreview>
               <div className="flex items-center gap-1 mt-1">
                 <div className="relative rounded-md">
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
